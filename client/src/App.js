@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import Login from "./pages/Login/Login";
 import GameBoard from "./pages/GameBoard/GameBoard";
+import WaitRoom from "./pages/WaitRoom/WaitRoom";
 
 const ENDPOINT = "http://127.0.0.1:4001";
 
@@ -11,8 +12,9 @@ function App() {
 
   return (
     <>
-      {activeMenu === "loginMenu" && <Login socket={socket} onRoomJoin={() => setActiveMenu("gameMenu")}/>}
-      {activeMenu === "gameMenu" && <GameBoard socket={socket} />}
+      {activeMenu === "loginMenu" && <Login socket={socket} onRoomJoin={() => setActiveMenu("gameBoardMenu")}/>}
+      {activeMenu === "waitRoomMenu" && <WaitRoom socket={socket} />}
+      {activeMenu === "gameBoardMenu" && <GameBoard socket={socket} />}
     </>
   );
 }
