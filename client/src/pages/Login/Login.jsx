@@ -13,7 +13,7 @@ const Login = ({ socket }) => {
       if(error) {
         alert(error);
       } else {
-        alert("You joined room : " + room)
+        alert("You joined room : " + room);
       }
     });
   }

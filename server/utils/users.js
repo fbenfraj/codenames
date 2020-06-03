@@ -1,17 +1,15 @@
 const users = [];
 
-// addUser, removeUser, getUser, getUsersInRoom
-
 const addUser = ({ id, username, room }) => {
-  // Clean the data
+  // Clean data
   username = username.trim().toLowerCase();
   room = room.trim().toLowerCase();
-
-  //Validate the data
-  if (!username || !room) {
-    return {
-      error: "Username and room are required.",
-    };
+  //Validate data
+  if (!username || username.length < 3) {
+    return { error: "Username required with minimum length of 3", };
+  }
+  if (!room || room.length < 3) {
+    return { error: "Room name required with minimum length of 3", };
   }
 
   // Check for existing user
@@ -21,25 +19,17 @@ const addUser = ({ id, username, room }) => {
 
   // Validate username
   if (existingUser) {
-    return {
-      error: "Username already exists.",
-    };
+    return { error: "Username already exists", };
   }
 
   // Store user
-  const user = {
-    id,
-    username,
-    room,
-  };
-
+  const user = { id, username, room, };
   users.push(user);
   return { user };
 };
 
 const removeUser = (id) => {
   const index = users.findIndex((user) => user.id === id);
-
   if (index !== -1) {
     return users.splice(index, 1)[0];
   }
