@@ -8,7 +8,6 @@ const index = require("./routes/index");
 const { addUser, getUsersInRoom, removeUser } = require("./utils/users");
 
 const { addRoom, getRooms } = require("./utils/rooms");
-
 const app = express();
 app.use(index);
 

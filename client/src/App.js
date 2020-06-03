@@ -4,11 +4,7 @@ import Login from "./pages/Login/Login";
 const ENDPOINT = "http://127.0.0.1:4001";
 
 function App() {
-  const [socket, setSocket] = useState();
-
-  useEffect(() => {
-    setSocket(socketIOClient(ENDPOINT));
-  }, []);
+  const socket = socketIOClient(ENDPOINT);
 
   return <Login socket={socket} />;
 }
