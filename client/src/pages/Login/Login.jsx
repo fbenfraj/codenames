@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const Login = ({ socket }) => {
-  const [username, setUsername] = useState("");
+const Login = ({ socket, onRoomJoin }) => {
+  const [username, setUsername] = useState("Bob");
+  const [roomName, setRoomName] = useState("MyAmazingRoom");
   const [rooms, setRooms] = useState([]);
 
   socket.on("sendRooms", rooms => {
@@ -13,7 +14,7 @@ const Login = ({ socket }) => {
       if(error) {
         alert(error);
       } else {
-        alert("You joined room : " + room);
+        onRoomJoin();
       }
     });
   }
@@ -25,6 +26,7 @@ const Login = ({ socket }) => {
         <h2>Saisissez une pseudo :</h2>
         <input
             type="text"
+            value={username}
             placeholder="Pseudo"
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -32,8 +34,13 @@ const Login = ({ socket }) => {
         </div>
       <div>
         <h2>Créez une nouvelle partie :</h2>
-        <input type="text" placeholder="Room name" />
-        <button onClick={() => joinRoom(socket)}>Créer</button>
+        <input
+          type="text"
+          value={roomName}
+          placeholder="Room name"
+          onChange={(e) => setRoomName(e.target.value)
+        }/>
+        <button onClick={() => joinRoom(roomName)}>Créer</button>
       </div>
       <div>
         <h2>Ou rejoignez une partie existante :</h2>
