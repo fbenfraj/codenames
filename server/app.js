@@ -37,11 +37,11 @@ io.on("connection", (socket) => {
       username,
       room,
     });
-    addRoom(room);
-
     if (error) {
       return callback(error);
     }
+
+    addRoom(room);
 
     socket.join(user.room);
     io.to(user.room).emit("roomData", {

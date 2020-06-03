@@ -19,7 +19,7 @@ const addUser = ({ id, username, room }) => {
 
   // Validate username
   if (existingUser) {
-    return { error: "Username already exists", };
+    return { error: "A player in this room already own this name", };
   }
 
   // Store user
