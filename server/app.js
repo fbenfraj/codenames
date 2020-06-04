@@ -8,7 +8,6 @@ const { addRoom, getRooms } = require("./utils/rooms");
 
 const PORT = process.env.PORT || 4001;
 
-
 const app = express();
 app.use(index);
 const server = http.createServer(app);
@@ -32,6 +31,19 @@ io.on("connection", (socket) => {
 
   //Listen player join room
   socket.on("join", (username, room, callback) => {
+    //Check if room isn't already full
+    let roomLength = 0;
+    const existingRoom = io.sockets.adapter.rooms[room.trim().toLowerCase()];
+    if (existingRoom) {
+      roomLength = existingRoom.length;
+    }
+
+    console.log(roomLength);
+
+    if (roomLength >= 4) {
+      return callback("Room is full. (max players: 4)");
+    }
+
     const { error, user } = addUser({
       id: socket.id,
       username,
